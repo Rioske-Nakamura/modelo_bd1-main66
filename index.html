@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <script src="score.js"></script>
+    <script src="conn.js"></script>
+    <script src="index.js"></script>
+    <title>Jogo - Acenda a Lâmpada</title>
+    <style>
+        #tela {width: 500px;}
+        h1 {color: rgb(204, 204, 238);}
+        strong {font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: blue;}
+        img { width: 110px;  height: 160px;}
+    </style>
+</head>
+
+<body onload="iniciaJogo()">
+    <h1>Vamos Apagar?</h1>
+
+    <div id="tela"></div>
+    <div><strong>Pontos:</strong> <span id="pontos">0</span></div>
+    <div><strong>Tempo:</strong> <span id="tempo">35</span></div>
+
+    <h3>Records </h3>
+    <div id="tudo"></div>
+</body>
+</html>
