@@ -42,14 +42,15 @@ function iniciaJogo(){
   timer = setInterval(contaTempo, 1000);
 
 
-  criarElemento(jogado, pontua){
+  function criarElemento(jogado, pontua){
     for (let i = 0; i < 10; ++i) {
     let pe = document.createElement("h4");
-    pe.class = "j" ;
+    pe.class = "pla" ;
     pe.textContent = jogado + ' tem: ' + pontua;
     let tudo = document.getElementById("tudo");
     tudo.appendChild(pe);
-  }}
+  };
+}
 
   fetch('http://localhost:5050/score')
     .then(response => {
