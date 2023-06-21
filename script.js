@@ -58,7 +58,22 @@ function iniciaJogo() {
     .catch(error => {
       console.error(error);
     });
+
+    
+  tudo.innerHTML = "";
+
+  for (let i = 0; i < 10; ++i) {
+    let pe = document.createElement("p");
+    pe.id = "j" + i;
+    pe.textContent = jogador + ' ' + pontuacao;
+    let tudo = document.getElementById("tudo");
+    tudo.appendChild(pe);
+  }
+  timer = setInterval(contaTempo, 1000);
 }
+
+
+
 
 function pegaMoeda(moeda) {
   moeda.src = "apagada.png";
