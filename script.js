@@ -24,7 +24,7 @@ fetch('http://localhost:5050/score', {
   .then(json => console.log(json))
   .catch(err => console.log(err));
 
-function iniciaJogo() {
+function iniciaJogo(){
   pontos = 0;
   tempo = tempo_inicial;
   let tela = document.getElementById("tela");
@@ -40,6 +40,16 @@ function iniciaJogo() {
     tela.appendChild(moeda);
   }
   timer = setInterval(contaTempo, 1000);
+
+
+  criarElemento(jogado, pontua){
+    for (let i = 0; i < 10; ++i) {
+    let pe = document.createElement("h4");
+    pe.class = "j" ;
+    pe.textContent = jogado + ' tem: ' + pontua;
+    let tudo = document.getElementById("tudo");
+    tudo.appendChild(pe);
+  }}
 
   fetch('http://localhost:5050/score')
     .then(response => {
@@ -59,17 +69,9 @@ function iniciaJogo() {
       console.error(error);
     });
 
-    
-  tudo.innerHTML = "";
+  
+  
 
-  for (let i = 0; i < 10; ++i) {
-    let pe = document.createElement("p");
-    pe.id = "j" + i;
-    pe.textContent = jogador + ' ' + pontuacao;
-    let tudo = document.getElementById("tudo");
-    tudo.appendChild(pe);
-  }
-  timer = setInterval(contaTempo, 1000);
 }
 
 
