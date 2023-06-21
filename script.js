@@ -1,21 +1,28 @@
-
-
 let Receptor = prompt("Qual seu nome?", "Seu Nome");
 
-    
-
- if (confirm("Bom dia " + Receptor + " !!!!!")) {
-      alert("continuando")
-    }
-
-
-
+if (confirm("Bom dia " + Receptor + " !!!!!")) {
+  alert("continuando");
+}
 
 const numero_moedas = 30;
 const tempo_inicial = 5;
 let pontos = 0;
 let tempo = 0;
 let timer = null;
+
+let pontuacao = {
+  pontuacao: pontos,
+  nome: Receptor
+};
+
+fetch('http://localhost:5050/score', {
+  method: "POST",
+  body: JSON.stringify(pontuacao),
+  headers: { "Content-type": "application/json; charset=UTF-8" }
+})
+  .then(response => response.json())
+  .then(json => console.log(json))
+  .catch(err => console.log(err));
 
 function iniciaJogo() {
   pontos = 0;
@@ -27,96 +34,49 @@ function iniciaJogo() {
     let moeda = document.createElement("img");
     moeda.src = "acesa.png";
     moeda.id = "j" + i;
-    moeda.onclick = function() {
+    moeda.onclick = function () {
       pegaMoeda(this);
-    }
+    };
     tela.appendChild(moeda);
   }
   timer = setInterval(contaTempo, 1000);
 
-
-  function criarElemento(pokemon, link){
-    const container = document.getElementById('tudo');
-    const name = document.createElement('p');
-    const url = document.createElement('p');
-  
-    name.textContent = pokemon;
-    url.textContent = link;
-  
-    container.appendChild(name);
-    container.appendChild(url);
-  }
-  
   fetch('http://localhost:5050/score')
     .then(response => {
       if (!response.ok) {
-        throw new Error('Erro na requisição'); 
+        throw new Error('Erro na requisição');
       }
       return response.json();
     })
     .then(data => {
-      const pokemonList = data
-      pokemonList.forEach(pontuacao => {
-        criarElemento(pontuacao.name, pontuacao.pontos)
+      console.log(data);
+      const jogadores = data;
+      jogadores.forEach(jogador => {
+        criarElemento(jogador.name, jogador.pontuacao);
       });
     })
     .catch(error => {
-      console.log(error);
+      console.error(error);
     });
-
-    let pontuacao = {
-      name: Receptor,
-      pontos: pontos  }
-  
-    fetch('http://localhost:5050/score', {
-      method: "POST",
-      body: JSON.stringify(pontuacao),
-      headers: {"Content-type":"application/json; charset=UTF-8"}
-    })
-    .then(response => response.json())
-    .then(json => console.log(json))
-    .catch(error => console.log(error))
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function pegaMoeda(moeda) {
-  moeda
   moeda.src = "apagada.png";
   ++pontos;
   let contadorPontos = document.getElementById("pontos");
   contadorPontos.innerText = pontos;
 }
+
 function contaTempo() {
   if (tempo > 0) {
     --tempo;
     let contadorTempo = document.getElementById("tempo");
     contadorTempo.innerText = tempo;
-
-    return contaTempo = null;
   }
 
   if (tempo <= 0) {
     clearInterval(timer);
-    alert("você fez " + pontos + " pontos, parabéns!");
+    alert("Você fez " + pontos + " pontos, parabéns!");
     iniciaJogo();
   }
 }
